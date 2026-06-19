@@ -80,7 +80,9 @@ mputation of missing genotypes in the second genomic dataset using the most comm
 
 - All the SNPs identified by the GEA methods presented above have been retained for subsequent analysis on climate (mal)adaptation.
   
-# Section two: Genetic diversity, historical climate, Wright neighbourhood size and Redundancy analysis (RDA) to investigate within-population variability in climate adaptation and evolutionary responses to contemporary climatic changes, along with associated simulation framework. Analyses were performed on the Lacanau and Tocchi populations only except for the RDA analyses were the model was built with the 82 range-wide populations (see Main text of the study)
+# Section two: Genetic diversity, historical climate, Wright neighbourhood size and Redundancy analysis (RDA) to investigate within-population variability in climate adaptation and evolutionary responses to contemporary climatic changes, along with associated simulation framework. 
+
+Analyses were performed on the Lacanau and Tocchi populations only except for the RDA analyses were the model was built with the 82 range-wide populations (see Main text of the study)
 
 #### [1. Genetic diversity calculation across Lacanau and Tocchi populations](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-despite-adaptive-lag/HTML/1-Genetic_diversity_Ppinaster_study.html)
 
