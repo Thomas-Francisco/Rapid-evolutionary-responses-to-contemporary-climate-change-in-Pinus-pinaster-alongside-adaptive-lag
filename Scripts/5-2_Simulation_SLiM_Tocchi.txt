@@ -1,0 +1,157 @@
+// Neutral non-Wright–Fisher spatial model with non-overlapping generations, 12 chromosomes, sex, and no pedigree to speed-up the simulation
+
+
+// Tocchi SCRIPT (lower dispersal of pollen and seed as observed in the data)
+
+initialize() {
+
+	initializeSLiMModelType("nonWF");
+	initializeSLiMOptions(keepPedigrees=F, dimensionality="xy");
+	initializeSex("A");
+	initializeMutationRate(1e-8);
+	initializeMutationType("m1", 0.5, "f", 0.0);
+	initializeGenomicElementType("g1", m1, 1.0);
+	defineConstant("CHR_LEN", 1000000);// Provide more than the desired number of SNPs (1,835) without generating too many extra SNPs that would slow down the model (~10,000 SNPs).
+	defineConstant("N_CHR",   12);
+	defineConstant("K",       10000);
+	
+	// Seed and pollen dispersals
+	defineConstant("SIGMA_SEED",  0.03);// 0.09 was used for Lacanau because the number of pollen originating from outside the population is three time higher
+	defineConstant("SIGMA_POLL",  0.15);// 0.30 was used for Lacanau because the number of juveniles originating from outside the population is increased by half
+	defineConstant("MAX_POLL",    0.5);
+	defineConstant("LAMBDA",      2);// number of offpsrings per Female
+	
+//Recomb
+	for (i in 0:(N_CHR - 1)) {
+		start = i * (CHR_LEN + 1);
+		initializeGenomicElement(g1, start, start + CHR_LEN - 1);
+	}
+	
+	rates = NULL;
+	ends  = NULL;
+	for (i in 0:(N_CHR - 1)) {
+		chrStart = i * (CHR_LEN + 1);
+		chrEnd   = chrStart + CHR_LEN - 1;
+		rates = c(rates, 1e-6);
+		ends  = c(ends,  chrEnd);
+		if (i < N_CHR - 1) {
+			rates = c(rates, 0.5);
+			ends  = c(ends,  chrEnd + 1);
+		}
+	}
+	initializeRecombinationRate(rates, ends);
+	
+	initializeInteractionType(1, "xy", reciprocal=F, maxDistance=MAX_POLL,
+		sexSegregation="FM");// Females interact with males only if the males are within the maximum pollen dispersal distance (0.7 here). In that case, the male can be considered a pollen donor in the reproduction step below otherwise, it is not.
+	
+	i1.setInteractionFunction("n", 1.0, SIGMA_POLL);// Pollen dispersal assigns a value to each male based on distance to the female and pollen dispersal capacity.
+}
+
+// Generate the population, define spatial boundaries, and assign positions to individuals.
+
+1 early() {// The events in generation 1 are defined in 1 early(), while events for all other generations are defined in early()
+	sim.addSubpop("p1", K);
+	p1.setSpatialBounds(c(0.0, 0.0, 1.0, 1.0));
+	p1.individuals.setSpatialPosition(p1.pointUniform());
+
+sigma = 0.15; // spread of initial population to the center
+    for (ind in p1.individuals) {
+        x = rnorm(1, 0.5, sigma);
+        y = rnorm(1, 0.5, sigma);
+        ind.setSpatialPosition(p1.pointReflected(c(x, y)));
+
+	}
+}
+
+// REPRODUCTION part
+
+reproduction(p1, "F") {
+	if (sim.cycle > 1001) return;
+	
+	nOff = rpois(1, LAMBDA);// Generate a variable number of offsprings for each female
+	
+	for (k in seqLen(nOff)) {
+		father = i1.drawByStrength(individual, 1);// For each female, select a father for each offspring from males within the maximum pollen dispersal distance
+		if (size(father) == 0) next;
+		
+		child = p1.addCrossed(individual, father);// Cross F and M
+		pos = individual.spatialPosition + rnorm(2, 0, SIGMA_SEED);// Take position of F and add random spatial noise to simulate seed dispersal based on defined parameters
+		child.setSpatialPosition(p1.pointReflected(pos));// Set spatial position offspring based on pos defined just above and keep it within defined space
+	}
+}
+
+// Early statments: non-overlapping genetations and carrying capacity
+
+early() {
+	if (sim.cycle > 1001) return; // To stop at the last generation
+	
+	inds     = p1.individuals;
+	parents  = inds[inds.age > 0];
+	newborns = inds[inds.age == 0];
+	
+	// Strict non-overlapping: kill all age-1 parents
+	if (size(parents) > 0)
+		parents.fitnessScaling = 0.0;
+	
+	// Carrying capacity: randomly retain at most K newborns, it's time consuming here because we are generating a lot of offsprings that are killed just after, could be modify if we want but for now it's working like this so I kept it as it is. 
+	if (size(newborns) > K) {
+		toKill = setDifference(newborns, sample(newborns, K));
+		toKill.fitnessScaling = 0.0;
+	}
+}
+
+
+// LATE: Interaction update, adult sampling, juvenile sampling
+
+late() {
+	// Re-evaluate pollen interaction so it is ready for the next cycle. The reproduction code is not working if we don't include this part.
+	if (sim.cycle <= 1001)
+		i1.evaluate(p1);
+	
+	// Sample focal adults at the end of the burn-in
+	if (sim.cycle == 1000) {
+        inds = p1.individuals;
+        dist = sqrt((inds.x - 0.5)^2 + (inds.y - 0.5)^2);
+        focal = inds[order(dist)[0:499]];            // 500 nearest to centre
+
+        // Store bounding box of the 500 adults for juvenile sampling
+        defineGlobal("BBOX", c(min(focal.x), min(focal.y),
+                                max(focal.x), max(focal.y)));
+
+        focal.haplosomes.outputHaplosomesToVCF(filePath="adults_Lacanau_1.vcf",
+            simplifyNucleotides=F);
+
+        header = "id\tsex\tx\ty";
+        rows   = focal.index + "\t" + focal.sex + "\t" +
+                 focal.x + "\t" + focal.y;
+        writeFile("adults_metadata_Lacanau_1.txt", c(header, rows));
+
+        catn("Cycle 1000: 500 adults saved. Bounding box: " + BBOX);
+    }
+	
+	// Sample juveniles, log parentage, export tree sequence, finish
+	if (sim.cycle == 1001) {
+        inds = p1.individuals[p1.individuals.age == 0];   // parents already dead via fitnessScaling=0
+// Sample juveniles within the same ‘box’ where the parents were sampled.
+        inBbox = (inds.x >= BBOX[0]) & (inds.x <= BBOX[2]) &
+                 (inds.y >= BBOX[1]) & (inds.y <= BBOX[3]);
+        pool   = inds[inBbox];
+        focal  = sample(pool, min(250, size(pool)));
+
+        focal.haplosomes.outputHaplosomesToVCF(filePath="juveniles_Lacanau_1.vcf",
+            simplifyNucleotides=F);
+
+        header = "id\tsex\tx\ty\tmotherID\tfatherID";
+        rows = focal.index + "\t" + focal.sex + "\t" +
+         focal.x + "\t" + focal.y;
+        writeFile("juveniles_metadata_Lacanau_1.txt", c(header, rows));
+
+        catn("Cycle 1001: " + size(pool) + " juveniles in bbox, 250 sampled. Done.");
+        sim.simulationFinished();
+    }
+}
+
+// End
+1001 late() { sim.simulationFinished();
+}
+
