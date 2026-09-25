@@ -107,7 +107,7 @@ Analyses were performed on the Lacanau and Tocchi populations only except for th
 - Estimation of the optimal genomic composition at climate-associated loci for historical, present, and future periods in the environments of Lacanau and Tocchi using the RDA-based GEA model
 - Genetic filtering followed by transformation of allele frequencies at climate-associated loci into RDA scores for each individual from Lacanau and Tocchi
 - Graphical visualisation of Lacanau and Tocchi individuals in the RDA GEA space, compared both to the populations used to build the model and to the predicted optima genomic compositions
-- Statistical comparison of RDA scores among within-population cohorts using two-sample t-tests, interpreted in relation to the predicted optima
+- Statistical comparison of RDA scores among within-population cohorts using two-sample *t*-tests, interpreted in relation to the predicted optima
 
 ####  5. Neutral simulation using SLiM software
 
@@ -125,7 +125,7 @@ Potential and realised genetic loads were then computed using this SNP annotatio
 
 - Computation of potential and realised genetic load
 - Graphical visualisation of results
-- Statistical comparisons using Games-Howell’s post hoc tests for group differences, as well as pairwise population comparisons using two-sample t-tests
+- Statistical comparisons using Games-Howell’s post hoc tests for group differences, as well as pairwise population comparisons using two-sample *t*-tests
 
 Session info: R 4.3.2 and SLiM 5.0
 
