@@ -109,7 +109,7 @@ Analyses were performed on the Lacanau and Tocchi populations only except for th
 - Graphical visualisation of Lacanau and Tocchi individuals in the RDA GEA space, compared both to the populations used to build the model and to the predicted optima genomic compositions
 - Statistical comparison of RDA scores among within-population cohorts using two-sample t-tests, interpreted in relation to the predicted optima
 
-####  Neutral simulation using SLiM software
+####  5. Neutral simulation using SLiM software
 
 - Simulation of the genotypes evolving under a neutral evolutionary scenario
 - Varying initial parameters regarding pollen and seed dispersal across Lacanau and Tocchi based on observed data
@@ -121,7 +121,7 @@ Analyses were performed on the Lacanau and Tocchi populations only except for th
 Analyses related to the computation of the genetic load using the SnpEff and PROVEAN software were not performed in R and can be accessed in the folder [Scripts_Genetic_load](https://github.com/Thomas-Francisco/Demographic-history-shapes-forest-tree-vulnerability-to-climate-change/tree/main/Scripts_Genetic_load). First, SNPs were mapped onto the *Pinus tabuliformis* reference genome [Niu et al. 2022](10.1016/j.cell.2021.12.006). SnpEff software (version 5.1 ) was then used to identify SNPs causing amino acid changes in protein-coding sequences [Cingolani et al. 2012](10.4161/fly.19695). Finally, the functional impact of mutations was predicted using PROVEAN (version 1.1.5), a software that assesses the impact of mutations by evaluating sequence conservation and alignment scores across homologous proteins [Choi & Chan 2015](10.1093/bioinformatics/btv195). For each SNP, PROVEAN predicted its impact on the biological function of the corresponding protein and assigned a ‘deleteriousness’ score. Mutations were considered deleterious when the PROVEAN score was lower than -2.5.
 Potential and realised genetic loads were then computed using this SNP annotation in R, along with graphical visualisation and populations and cohorts comparisons. 
 
-#### [5. Within-population variability in climate adaptation and evolutionary responses](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/6_Genetic_load_Ppinaster_study.html)
+#### [6. Within-population variability in climate adaptation and evolutionary responses](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/6_Genetic_load_Ppinaster_study.html)
 
 - Computation of potential and realised genetic load
 - Graphical visualisation of results
