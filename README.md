@@ -103,7 +103,7 @@ Analyses were performed on the Lacanau and Tocchi populations only except for th
 
 #### [4. Within-population variability in climate adaptation and evolutionary potential](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/4_RDA_model_within-population_and_evolutionary_responses_Ppinaster_study.html)
 
-- Calculation of the RDA-based GEA model using the 84 range-wide populations (excluding Lacanau and Tocchi) using the climate-associated SNPs identified previously and the climatic variables for the 1901–1950 period
+- Calculation of the RDA-based GEA model using the 82 range-wide populations (excluding Lacanau and Tocchi) using the climate-associated SNPs identified previously and the climatic variables for the 1901–1950 period
 - Estimation of the optimal genomic composition at climate-associated loci for historical, present, and future periods in the environments of Lacanau and Tocchi using the RDA-based GEA model
 - Genetic filtering followed by transformation of allele frequencies at climate-associated loci into RDA scores for each individual from Lacanau and Tocchi
 - Graphical visualisation of Lacanau and Tocchi individuals in the RDA GEA space, compared both to the populations used to build the model and to the predicted optima genomic compositions
