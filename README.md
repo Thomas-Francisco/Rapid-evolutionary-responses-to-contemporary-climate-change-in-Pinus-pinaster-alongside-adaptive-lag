@@ -1,4 +1,4 @@
-# Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-despite-adaptive-lag
+# Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag
 
 
 This repository is associated with the study [Francisco et al. preprint](https://www.biorxiv.org/content/), titled *Rapid evolutionary responses to contemporary climate change in maritime pine (Pinus pinaster Ait.) alongside widespread adaptive lag*, under review.  
@@ -84,24 +84,24 @@ mputation of missing genotypes in the second genomic dataset using the most comm
 
 Analyses were performed on the Lacanau and Tocchi populations only except for the RDA analyses were the model was built with the 82 range-wide populations (see Main text of the study)
 
-#### [1. Genetic diversity calculation across Lacanau and Tocchi populations](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-despite-adaptive-lag/HTML/1-Genetic_diversity_Ppinaster_study.html)
+#### [1. Genetic diversity calculation across Lacanau and Tocchi populations](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/1_Genetic_diversity_Ppinaster_study.html)
 
 - Observed heterozygosity (Hᵢ) as a measure of genetic diversity
 - Calculations performed under different thresholds of minor allele count (MAC) and missing data
 - Statistical comparisons of values between the Lacanau and Tocchi populations, as well as among cohorts within populations, using one-way ANOVA with associated Post-hoc pairwise comparisons using Tukey’s HSD test, along with associated p-values
 
-#### [2. Spatial genetic structure analysis (SGS) and Wright neighbourhood size (*Nb*) estimation](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-despite-adaptive-lag/HTML/2-SPAGeDi_format_Ppinaster_study.html)
+#### [2. Spatial genetic structure analysis (SGS) and Wright neighbourhood size (*Nb*) estimation](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/2-SPAGeDi_format_Ppinaster_study.html)
 
 - Pre-processing of genomic data for analysis in SPAGeDi to assess spatial genetic structure (SGS) and estimate neighbourhood size (Nb)
 - Generation of 10 replicate datasets per population (Lacanau and Tocchi)
 - Description of the SPAGeDi analyses performed
 
-#### [3. Historical climate during the Mid-Holocene period (~6,000 years ago)](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-despite-adaptive-lag/HTML/3-Historical_climate_Ppinaster_stud.html)
+#### [3. Historical climate during the Mid-Holocene period (~6,000 years ago)](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/3-Historical_climate_Ppinaster_stud.html)
 
 - Extraction of climatic data for the Lacanau and Tocchi populations based on geographic coordinates, at a spatial resolution of 30 arc-seconds from the WorldClim 1.4 database, across five global climate models (GCMs)
 - Calculation of bioclimatic variables and the summer heat-moisture index (SHM) using the *biovars* R package
 
-#### [4. Within-population variability in climate adaptation and evolutionary potential](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-despite-adaptive-lag/HTML/4-RDA_model_within-population_and_evolutionary_responses_Ppinaster_study.html)
+#### [4. Within-population variability in climate adaptation and evolutionary potential](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/4-RDA_model_within-population_and_evolutionary_responses_Ppinaster_study.html)
 
 - Calculation of the RDA-based GEA model using the 84 range-wide populations (excluding Lacanau and Tocchi) using the climate-associated SNPs identified previously and the climatic variables for the 1901–1950 period
 - Estimation of the optimal genomic composition at climate-associated loci for historical, present, and future periods in the environments of Lacanau and Tocchi using the RDA-based GEA model
@@ -114,7 +114,7 @@ Analyses were performed on the Lacanau and Tocchi populations only except for th
 Analyses related to the computation of the genetic load using the SnpEff and PROVEAN software were not performed in R and can be accessed in the folder [Scripts_Genetic_load](https://github.com/Thomas-Francisco/Demographic-history-shapes-forest-tree-vulnerability-to-climate-change/tree/main/Scripts_Genetic_load). First, SNPs were mapped onto the *Pinus tabuliformis* reference genome [Niu et al. 2022](10.1016/j.cell.2021.12.006). SnpEff software (version 5.1 ) was then used to identify SNPs causing amino acid changes in protein-coding sequences [Cingolani et al. 2012](10.4161/fly.19695). Finally, the functional impact of mutations was predicted using PROVEAN (version 1.1.5), a software that assesses the impact of mutations by evaluating sequence conservation and alignment scores across homologous proteins [Choi & Chan 2015](10.1093/bioinformatics/btv195). For each SNP, PROVEAN predicted its impact on the biological function of the corresponding protein and assigned a ‘deleteriousness’ score. Mutations were considered deleterious when the PROVEAN score was lower than -2.5.
 Potential and realised genetic loads were then computed using this SNP annotation in R, along with graphical visualisation and populations and cohorts comparisons. 
 
-#### [5. Within-population variability in climate adaptation and evolutionary responses](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-despite-adaptive-lag/HTML/5-Genetic_load_figures_Ppinaster_study.html)
+#### [5. Within-population variability in climate adaptation and evolutionary responses](https://thomas-francisco.github.io/Rapid-evolutionary-responses-to-contemporary-climate-change-in-Pinus-pinaster-alongside-adaptive-lag/HTML/5-Genetic_load_figures_Ppinaster_study.html)
 
 - Computation of potential and realised genetic load
 - Graphical visualisation of results
